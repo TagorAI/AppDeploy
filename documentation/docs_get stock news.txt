@@ -1,0 +1,317 @@
+docs_get stock news
+
+Market News & Sentiment Trending
+Looking for market news data to train your LLM models or to augment your trading strategy? You have just found it. This API returns live and historical market news & sentiment data from a large & growing selection of premier news outlets around the world, covering stocks, cryptocurrencies, forex, and a wide range of topics such as fiscal policy, mergers & acquisitions, IPOs, etc. This API, combined with our core stock API, fundamental data, and technical indicator APIs, can provide you with a 360-degree view of the financial market and the broader economy.
+
+
+API Parameters
+❚ Required: function
+
+The function of your choice. In this case, function=NEWS_SENTIMENT
+
+❚ Optional: tickers
+
+The stock/crypto/forex symbols of your choice. For example: tickers=IBM will filter for articles that mention the IBM ticker; tickers=COIN,CRYPTO:BTC,FOREX:USD will filter for articles that simultaneously mention Coinbase (COIN), Bitcoin (CRYPTO:BTC), and US Dollar (FOREX:USD) in their content.
+
+❚ Optional: topics
+
+The news topics of your choice. For example: topics=technology will filter for articles that write about the technology sector; topics=technology,ipo will filter for articles that simultaneously cover technology and IPO in their content. Below is the full list of supported topics:
+
+Blockchain: blockchain
+Earnings: earnings
+IPO: ipo
+Mergers & Acquisitions: mergers_and_acquisitions
+Financial Markets: financial_markets
+Economy - Fiscal Policy (e.g., tax reform, government spending): economy_fiscal
+Economy - Monetary Policy (e.g., interest rates, inflation): economy_monetary
+Economy - Macro/Overall: economy_macro
+Energy & Transportation: energy_transportation
+Finance: finance
+Life Sciences: life_sciences
+Manufacturing: manufacturing
+Real Estate & Construction: real_estate
+Retail & Wholesale: retail_wholesale
+Technology: technology
+❚ Optional: time_from and time_to
+
+The time range of the news articles you are targeting, in YYYYMMDDTHHMM format. For example: time_from=20220410T0130. If time_from is specified but time_to is missing, the API will return articles published between the time_from value and the current time.
+
+❚ Optional: sort
+
+By default, sort=LATEST and the API will return the latest articles first. You can also set sort=EARLIEST or sort=RELEVANCE based on your use case.
+
+❚ Optional: limit
+
+By default, limit=50 and the API will return up to 50 matching results. You can also set limit=1000 to output up to 1000 results.
+
+❚ Required: apikey
+
+Your API key. Claim your free API key here.
+
+
+Examples (click for JSON output)
+Querying news articles that mention the AAPL ticker.
+https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo
+
+Querying news articles that simultaneously mention the Coinbase stock (COIN), Bitcoin (CRYPTO:BTC), and US Dollar (FOREX:USD) and are published on or after 2022-04-10, 1:30am UTC.
+https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=COIN,CRYPTO:BTC,FOREX:USD&time_from=20220410T0130&limit=1000&apikey=demo
+
+
+Language-specific guides
+Python NodeJS PHP C#/.NET Other
+import requests
+
+# replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo'
+r = requests.get(url)
+data = r.json()
+
+print(data)
+
+*** example output **
+
+{
+    "items": "50",
+    "sentiment_score_definition": "x <= -0.35: Bearish; -0.35 < x <= -0.15: Somewhat-Bearish; -0.15 < x < 0.15: Neutral; 0.15 <= x < 0.35: Somewhat_Bullish; x >= 0.35: Bullish",
+    "relevance_score_definition": "0 < x <= 1, with a higher score indicating higher relevance.",
+    "feed": [
+        {
+            "title": "iPhone 17 Leak, Tim Cook's Donation To Trump Inauguration, And China's Subsidies To Homegrown Players: This Week In Appleverse - Apple  ( NASDAQ:AAPL ) ",
+            "url": "https://www.benzinga.com/tech/25/01/42804598/iphone-17-leak-tim-cooks-donation-to-trump-inauguration-and-chinas-subsidies-to-homegrown-players-this-week-",
+            "time_published": "20250105T130220",
+            "authors": [
+                "Benzinga Neuro"
+            ],
+            "summary": "The past week was a rollercoaster ride for Apple Inc. AAPL. From leaks about the iPhone 17's display upgrade to CEO Tim Cook's hefty donation to Trump's inauguration, the tech giant was in the limelight for various reasons.",
+            "banner_image": "https://cdn.benzinga.com/files/images/story/2025/01/05/Apple--Nvidia--and-Microsoft-Enter-the-4.jpeg?width=1200&height=800&fit=crop",
+            "source": "Benzinga",
+            "category_within_source": "News",
+            "source_domain": "www.benzinga.com",
+            "topics": [
+                {
+                    "topic": "Technology",
+                    "relevance_score": "1.0"
+                },
+                {
+                    "topic": "Financial Markets",
+                    "relevance_score": "0.161647"
+                }
+            ],
+            "overall_sentiment_score": 0.19036,
+            "overall_sentiment_label": "Somewhat-Bullish",
+            "ticker_sentiment": [
+                {
+                    "ticker": "AAPL",
+                    "relevance_score": "0.5633",
+                    "ticker_sentiment_score": "0.222109",
+                    "ticker_sentiment_label": "Somewhat-Bullish"
+                },
+                {
+                    "ticker": "WB",
+                    "relevance_score": "0.088472",
+                    "ticker_sentiment_score": "0.123366",
+                    "ticker_sentiment_label": "Neutral"
+                }
+            ]
+        },
+        {
+            "title": "This Top Warren Buffett Stock Could Soar Even Higher in 2025. Time to Buy?",
+            "url": "https://www.fool.com/investing/2025/01/05/this-top-warren-buffett-stock-could-soar-even-high/",
+            "time_published": "20250105T104600",
+            "authors": [
+                "Daniel Sparks"
+            ],
+            "summary": "Excluding the stock positions Buffett trimmed throughout 2024, this is by far the famed investor's biggest bet.",
+            "banner_image": "https://g.foolcdn.com/editorial/images/802787/axp-stock.jpeg",
+            "source": "Motley Fool",
+            "category_within_source": "n/a",
+            "source_domain": "www.fool.com",
+            "topics": [
+                {
+                    "topic": "Financial Markets",
+                    "relevance_score": "0.503496"
+                },
+                {
+                    "topic": "Earnings",
+                    "relevance_score": "0.999997"
+                },
+                {
+                    "topic": "Technology",
+                    "relevance_score": "0.5"
+                },
+                {
+                    "topic": "Finance",
+                    "relevance_score": "0.5"
+                }
+            ],
+            "overall_sentiment_score": 0.422646,
+            "overall_sentiment_label": "Bullish",
+            "ticker_sentiment": [
+                {
+                    "ticker": "AXP",
+                    "relevance_score": "0.600602",
+                    "ticker_sentiment_score": "0.570157",
+                    "ticker_sentiment_label": "Bullish"
+                },
+                {
+                    "ticker": "AAPL",
+                    "relevance_score": "0.199584",
+                    "ticker_sentiment_score": "0.125256",
+                    "ticker_sentiment_label": "Neutral"
+                }
+            ]
+        },
+        {
+            "title": "Can Shiba Inu Reach $1 in 2025? The Answer Will Make Your Head Spin.",
+            "url": "https://www.fool.com/investing/2025/01/05/can-shiba-inu-reach-1-in-2025-answer-make-head-spi/",
+            "time_published": "20250105T102900",
+            "authors": [
+                "Anthony Di Pizio"
+            ],
+            "summary": "The Shiba Inu ( CRYPTO: SHIB ) cryptocurrency opened at a price of $0.00000000008 per token in 2021 before soaring by a whopping 107,499,900% to a peak of $0.000086 in October of that year. If you had a crystal ball and timed your investment perfectly, that gain could have turned just $1 into ...",
+            "banner_image": "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F802643%2Fa-happy-shiba-inu-dog-standing-in-a-garden.jpg&op=resize&w=700",
+            "source": "Motley Fool",
+            "category_within_source": "n/a",
+            "source_domain": "www.fool.com",
+            "topics": [
+                {
+                    "topic": "Economy - Monetary",
+                    "relevance_score": "0.310843"
+                },
+                {
+                    "topic": "Financial Markets",
+                    "relevance_score": "0.538269"
+                },
+                {
+                    "topic": "Technology",
+                    "relevance_score": "1.0"
+                },
+                {
+                    "topic": "Blockchain",
+                    "relevance_score": "0.769861"
+                }
+            ],
+            "overall_sentiment_score": 0.144535,
+            "overall_sentiment_label": "Neutral",
+            "ticker_sentiment": [
+                {
+                    "ticker": "AAPL",
+                    "relevance_score": "0.044885",
+                    "ticker_sentiment_score": "0.172908",
+                    "ticker_sentiment_label": "Somewhat-Bullish"
+                },
+                {
+                    "ticker": "CRYPTO:BTC",
+                    "relevance_score": "0.044885",
+                    "ticker_sentiment_score": "0.076359",
+                    "ticker_sentiment_label": "Neutral"
+                },
+                {
+                    "ticker": "CRYPTO:ETH",
+                    "relevance_score": "0.044885",
+                    "ticker_sentiment_score": "-0.099626",
+                    "ticker_sentiment_label": "Neutral"
+                },
+                {
+                    "ticker": "CRYPTO:SHIB",
+                    "relevance_score": "0.632179",
+                    "ticker_sentiment_score": "0.120673",
+                    "ticker_sentiment_label": "Neutral"
+                }
+            ]
+        },
+        {
+            "title": "Is Apple a Buy, Sell, or Hold in 2025?",
+            "url": "https://www.fool.com/investing/2025/01/05/is-apple-a-buy-sell-or-hold-in-2025/",
+            "time_published": "20250105T093000",
+            "authors": [
+                "Chris Neiger"
+            ],
+            "summary": "Apple ( NASDAQ: AAPL ) is one the world's largest publicly traded companies, with a market cap of $3.7 trillion and it continues to attract investor attention as it slowly steps into new areas of innovation, like artificial intelligence ( AI ) .The tech stock easily outpaced the S&P 500 over the ...",
+            "banner_image": "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F802758%2Fgettyimages-1096811086-1200x679-88e5cda.jpg&op=resize&w=700",
+            "source": "Motley Fool",
+            "category_within_source": "n/a",
+            "source_domain": "www.fool.com",
+            "topics": [
+                {
+                    "topic": "Earnings",
+                    "relevance_score": "0.158519"
+                },
+                {
+                    "topic": "Technology",
+                    "relevance_score": "1.0"
+                },
+                {
+                    "topic": "Financial Markets",
+                    "relevance_score": "0.5855"
+                }
+            ],
+            "overall_sentiment_score": 0.226562,
+            "overall_sentiment_label": "Somewhat-Bullish",
+            "ticker_sentiment": [
+                {
+                    "ticker": "AAPL",
+                    "relevance_score": "0.948158",
+                    "ticker_sentiment_score": "0.430515",
+                    "ticker_sentiment_label": "Bullish"
+                }
+            ]
+        },
+        {
+            "title": "Should You Buy Apple Stock Right Now in 2025?",
+            "url": "https://www.fool.com/investing/2025/01/05/should-you-buy-apple-stock-right-now-in-2025/",
+            "time_published": "20250105T090400",
+            "authors": [
+                "Parkev Tatevosian",
+                "CFA"
+            ],
+            "summary": "Apple ( NASDAQ: AAPL ) has struggled to generate growth in recent years.*Stock prices used were the afternoon prices of Jan. 1, 2025. The video was published on Jan. 3, 2025.Continue reading ...",
+            "banner_image": "https://g.foolcdn.com/editorial/images/802874/stock-market-data-hundred-dollar-bill.jpg",
+            "source": "Motley Fool",
+            "category_within_source": "n/a",
+            "source_domain": "www.fool.com",
+            "topics": [
+                {
+                    "topic": "Technology",
+                    "relevance_score": "1.0"
+                }
+            ],
+            "overall_sentiment_score": -0.383535,
+            "overall_sentiment_label": "Bearish",
+            "ticker_sentiment": [
+                {
+                    "ticker": "AAPL",
+                    "relevance_score": "0.876064",
+                    "ticker_sentiment_score": "-0.601535",
+                    "ticker_sentiment_label": "Bearish"
+                }
+            ]
+        },
+        {
+            "title": "Consumer Tech News  ( Dec 30-Jan 3 ) : Apple Stops Selling iPhone 14, iPhone 14 Plus, iPhone SE, Trump Seeks A 'Political Resolution' Of TikTok Ban & More - Microsoft  ( NASDAQ:MSFT ) , Apple  ( NASDAQ:AAPL ) ",
+            "url": "https://www.benzinga.com/tech/25/01/42803280/consumer-tech-news-dec-30-jan-3-apple-stops-selling-iphone-14-iphone-14-plus-iphone-se-trump-seeks-a-politic",
+            "time_published": "20250104T163519",
+            "authors": [
+                "Lekha Gupta"
+            ],
+            "summary": "The European Union's ( EU ) USB-C directive has officially come into force, mandating a universal charging port for electronic devices. The directive, effective from 2025, requires mobile phones to feature a USB-C port.",
+            "banner_image": "https://cdn.benzinga.com/files/images/story/2025/01/04/Penang--Malaysia---Oct-10--2022-Apple-Ip.jpeg?width=1200&height=800&fit=crop",
+            "source": "Benzinga",
+            "category_within_source": "News",
+            "source_domain": "www.benzinga.com",
+            "topics": [
+                {
+                    "topic": "Technology",
+                    "relevance_score": "0.5"
+                },
+                {
+                    "topic": "Blockchain",
+                    "relevance_score": "0.158519"
+                },
+                {
+                    "topic": "Manufacturing",
+                    "relevance_score": "0.5"
+                }
+            ],
+            "overall_sentiment_score": 0.096592,
+            "overall_sentiment_label": "Neutral",

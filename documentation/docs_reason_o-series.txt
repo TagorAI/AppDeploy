@@ -1,0 +1,32 @@
+Reasoning models
+Explore advanced reasoning and problem-solving models.
+Reasoning models, like OpenAI o1 and o3-mini, are new large language models trained with reinforcement learning to perform complex reasoning. Reasoning models think before they answer, producing a long internal chain of thought before responding to the user. Reasoning models excel in complex problem solving, coding, scientific reasoning, and multi-step planning for agentic workflows.
+
+As with our GPT models, we provide both a smaller, faster model (o3-mini) that is less expensive per token, and a larger model (o1) that is somewhat slower and more expensive, but can often generate better responses for complex tasks, and generalize better across domains.
+
+Quickstart
+Reasoning models can be used through the chat completions endpoint as seen here.
+
+note there is no system prompt in the o-series models
+
+Using a reasoning model in chat completions
+from openai import OpenAI
+client = OpenAI()
+
+prompt = """
+Write a bash script that takes a matrix represented as a string with 
+format '[1,2],[3,4],[5,6]' and prints the transpose in the same format.
+"""
+
+response = client.chat.completions.create(
+    model="o3-mini",
+    reasoning_effort="medium",
+    messages=[
+        {
+            "role": "user", 
+            "content": prompt
+        }
+    ]
+)
+
+print(response.choices[0].message.content)

@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Clean monochromatic palette for light mode */
+    --background: 0 0% 98%;             /* Off-white background */
+    --foreground: 0 0% 12%;             /* Near-black text */
+    --primary: 0 0% 9%;                 /* Black primary */
+    --primary-foreground: 0 0% 98%;     /* White text on primary */
+    --secondary: 0 0% 0%;               /* Change to black for filled buttons */
+    --secondary-foreground: 0 0% 100%;  /* White text for contrast */
+    --border: 0 0% 90%;                 /* Light grey border */
+    --input: 0 0% 90%;                  /* Matching border */
+    --ring: 0 0% 50%;                   /* Medium grey ring */
+    --radius: 0.5rem;
+    
+    /* Card and UI elements */
+    --card: 0 0% 100%;                  /* Pure white cards */
+    --card-foreground: 0 0% 12%;        /* Same as foreground */
+    --popover: 0 0% 100%;               /* Match card */
+    --popover-foreground: 0 0% 12%;     /* Match foreground */
+    --muted: 0 0% 96%;                  /* Light grey muted */
+    --muted-foreground: 0 0% 45%;       /* Medium grey text */
+    --accent: 0 0% 94%;                 /* Very light grey accent */
+    --accent-foreground: 0 0% 12%;      /* Near-black text */
+    --destructive: 0 84% 60%;           /* Keeping similar */
+    --destructive-foreground: 0 0% 98%; /* Keeping similar */
+    
+    /* Chart colors - monochromatic with different shades */
+    --chart-1: 0 0% 0%;                 /* Black */
+    --chart-2: 0 0% 33%;                /* Dark grey */
+    --chart-3: 0 0% 50%;                /* Medium grey */
+    --chart-4: 0 0% 66%;                /* Light grey */
+    --chart-5: 0 0% 80%;                /* Very light grey */
+    
+    /* Sidebar specific */
+    --sidebar-background: 0 0% 100%;    /* White sidebar */
+    --sidebar-foreground: 0 0% 12%;     /* Near-black text */
+    --sidebar-primary: 0 0% 9%;         /* Match primary */
+    --sidebar-primary-foreground: 0 0% 98%; /* White text */
+    --sidebar-accent: 0 0% 94%;         /* Very light grey accent */
+    --sidebar-accent-foreground: 0 0% 12%; /* Near-black text */
+    --sidebar-border: 0 0% 90%;         /* Light grey border */
+    --sidebar-ring: 0 0% 50%;           /* Medium grey ring */
+  }
+  
+  .dark {
+    /* Monochromatic dark mode */
+    --background: 0 0% 10%;             /* Near-black background */
+    --foreground: 0 0% 95%;             /* Off-white text */
+    --card: 0 0% 15%;                   /* Dark grey cards */
+    --card-foreground: 0 0% 95%;        /* Off-white text */
+    --popover: 0 0% 15%;                /* Match card */
+    --popover-foreground: 0 0% 95%;     /* Match foreground */
+    --primary: 0 0% 90%;                /* Near-white primary */
+    --primary-foreground: 0 0% 10%;     /* Near-black text on primary */
+    --secondary: 0 0% 20%;              /* Dark grey secondary */
+    --secondary-foreground: 0 0% 95%;   /* Off-white text */
+    --muted: 0 0% 20%;                  /* Dark grey muted */
+    --muted-foreground: 0 0% 70%;       /* Light grey muted text */
+    --accent: 0 0% 25%;                 /* Dark grey accent */
+    --accent-foreground: 0 0% 95%;      /* Off-white text */
+    --destructive: 0 62.8% 30.6%;       /* Keeping similar */
+    --destructive-foreground: 0 0% 98%; /* Keeping similar */
+    --border: 0 0% 20%;                 /* Dark grey border */
+    --input: 0 0% 20%;                  /* Match border */
+    --ring: 0 0% 50%;                   /* Medium grey ring */
+    
+    /* Chart colors - monochromatic with different shades */
+    --chart-1: 0 0% 95%;                /* Near-white */
+    --chart-2: 0 0% 80%;                /* Light grey */
+    --chart-3: 0 0% 65%;                /* Medium grey */
+    --chart-4: 0 0% 50%;                /* Darker grey */
+    --chart-5: 0 0% 35%;                /* Dark grey */
+    
+    /* Sidebar specific */
+    --sidebar-background: 0 0% 7%;      /* Darker background */
+    --sidebar-foreground: 0 0% 95%;     /* Off-white text */
+    --sidebar-primary: 0 0% 90%;        /* Match primary */
+    --sidebar-primary-foreground: 0 0% 10%; /* Near-black text */
+    --sidebar-accent: 0 0% 25%;         /* Dark grey accent */
+    --sidebar-accent-foreground: 0 0% 95%; /* Off-white text */
+    --sidebar-border: 0 0% 15%;         /* Very dark border */
+    --sidebar-ring: 0 0% 50%;           /* Medium grey ring */
+  }
+  
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-montserrat;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
+}
+
+/* Typography and font classes */
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Link styles */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+/* Button styles - these should be customized to use your theme variables */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+/* Update the ghost button variant to have a darker shade */
+[data-variant="ghost"] {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+
+[data-variant="ghost"]:hover {
+  background-color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Custom utility classes */
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.text-emphasis {
+  font-weight: 600;
+}
+
+/* Disclaimer footnote */
+.disclaimer-footnote {
+  text-align: center;
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: 2rem;
+  padding: 0.5rem;
+  border-top: 1px solid hsl(var(--border));
+  font-style: italic;
+}
+
+/* Light mode overrides */
+@media (prefers-color-scheme: light) {
+  button {
+    background-color: #f9f9f9;
+  }
+}

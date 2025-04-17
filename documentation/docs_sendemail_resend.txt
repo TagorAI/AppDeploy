@@ -1,0 +1,95 @@
+
+Sending email with Resend
+
+FastAPI
+Learn how to send your first email using FastAPI and the Resend Python SDK.
+
+​
+Prerequisites
+To get the most out of this guide, you’ll need to:
+
+Create an API key
+Verify your domain
+​
+1. Install
+Get the Resend Python SDK.
+
+Pip
+
+pip install resend
+​
+2. Send email using HTML
+The easiest way to send an email is by using the html parameter.
+
+main.py
+
+import resend
+from typing import Dict
+from fastapi import FastAPI
+
+resend.api_key = "re_123456789"
+
+app = FastAPI()
+
+@app.post("/")
+def send_mail() -> Dict:
+    params: resend.Emails.SendParams = {
+        "from": "onboarding@resend.dev",
+        "to": ["delivered@resend.dev"],
+        "subject": "Hello World",
+        "html": "<strong>it works!</strong>",
+    }
+    email: resend.Email = resend.Emails.send(params)
+    return email
+
+
+****  API reference from resend
+
+API Reference
+Introduction
+Understand general concepts, response codes, and authentication strategies.
+
+​
+Base URL
+The Resend API is built on REST principles. We enforce HTTPS in every request to improve data security, integrity, and privacy. The API does not support HTTP.
+
+All requests contain the following base URL:
+
+
+https://api.resend.com
+​
+Authentication
+To authenticate you need to add an Authorization header with the contents of the header being Bearer re_123456789 where re_123456789 is your API Key.
+
+
+Authorization: Bearer re_123456789
+​
+Response codes
+Resend uses standard HTTP codes to indicate the success or failure of your requests.
+
+In general, 2xx HTTP codes correspond to success, 4xx codes are for user-related failures, and 5xx codes are for infrastructure issues.
+
+Status	Description
+200	Successful request.
+400	Check that the parameters were correct.
+401	The API key used was missing.
+403	The API key used was invalid.
+404	The resource was not found.
+429	The rate limit was exceeded.
+5xx	Indicates an error with Resend servers.
+Check Error Codes for a comprehensive breakdown of all possible API errors.
+
+​
+Rate limit
+The response headers describe your current rate limit following every request in conformance with the IETF standard:
+
+Header name	Description
+ratelimit-limit	Maximum number of requests allowed within a window.
+ratelimit-remaining	How many requests you have left within the current window.
+ratelimit-reset	How many seconds until the limits are reset.
+retry-after	How many seconds you should wait before making a follow-up request.
+The default maximum rate limit is 2 requests per second. This number can be increased for trusted senders by request.
+
+After that, you’ll hit the rate limit and receive a 429 response error code.
+
+To prevent this, we recommend reducing the rate at which you request the API. This can be done by introducing a queue mechanism or reducing the number of concurrent requests per second. If you have specific requirements, contact support to request a rate increase.

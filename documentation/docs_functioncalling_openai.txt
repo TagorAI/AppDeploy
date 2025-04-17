@@ -1,0 +1,78 @@
+Documentation on OpenAI Function Calling
+
+Function calling steps
+Call model with functions defined – along with your system and user messages.
+
+Step 1: Call model with get_weather tool defined
+
+from openai import OpenAI
+import json
+
+client = OpenAI()
+
+tools = [{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "Get current temperature for provided coordinates in celsius.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "latitude": {"type": "number"},
+                "longitude": {"type": "number"}
+            },
+            "required": ["latitude", "longitude"],
+            "additionalProperties": False
+        },
+        "strict": True
+    }
+}]
+
+messages = [{"role": "user", "content": "What's the weather like in Paris today?"}]
+
+completion = client.chat.completions.create(
+    model="gpt-4o",
+    messages=messages,
+    tools=tools,
+)
+Model decides to call function(s) – model returns the name and input arguments.
+
+completion.choices[0].message.tool_calls
+
+[{
+    "id": "call_12345xyz",
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "arguments": "{\"latitude\":48.8566,\"longitude\":2.3522}"
+    }
+}]
+Execute function code – parse the model's response and handle function calls.
+
+Step 3: Execute get_weather function
+
+tool_call = completion.choices[0].message.tool_calls[0]
+args = json.loads(tool_call.function.arguments)
+
+result = get_weather(args["latitude"], args["longitude"])
+Supply model with results – so it can incorporate them into its final response.
+
+Step 4: Supply result and call model again
+
+messages.append(completion.choices[0].message)  # append model's function call message
+messages.append({                               # append result message
+    "role": "tool",
+    "tool_call_id": tool_call.id,
+    "content": result
+})
+
+completion_2 = client.chat.completions.create(
+    model="gpt-4o",
+    messages=messages,
+    tools=tools,
+)
+Model responds – incorporating the result in its output.
+
+completion_2.choices[0].message.content
+
+"The current temperature in Paris is 14°C (57.2°F)."
