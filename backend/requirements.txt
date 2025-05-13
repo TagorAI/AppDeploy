@@ -8,3 +8,4 @@ httpx==0.25.2
 gotrue==2.0.0
 fastapi[all]
 python-jose[cryptography] 
+openai
