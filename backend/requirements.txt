@@ -9,3 +9,4 @@ gotrue==2.0.0
 fastapi[all]
 python-jose[cryptography] 
 openai
+anthropic
