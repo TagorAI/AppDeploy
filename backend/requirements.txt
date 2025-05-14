@@ -11,4 +11,3 @@ python-jose[cryptography]
 openai
 anthropic
 pydub
-ffmpeg-static
