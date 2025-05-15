@@ -9,6 +9,11 @@ class Settings(BaseSettings):
     # App settings
     APP_NAME: str = "AI Financial Advisor"
     APP_VERSION: str = "1.0.0"
+
+    #temporary addition to bypass API KEY 
+    openai_api_key: str = "DUMMY_KEY"
+    anthropic_api_key: str = "DUMMY_KEY"
+    perplexity_api_key: str = "DUMMY_KEY"
     
     # Economic parameters
     ANNUAL_INFLATION_RATE: float = 3.0
@@ -36,6 +41,8 @@ class Settings(BaseSettings):
     
     class Config:
         case_sensitive = True
+        #added this line to bypass API key as well
+        env_file = ".env"
 
 @lru_cache()
 def get_settings() -> Settings:
